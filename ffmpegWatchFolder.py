@@ -25,7 +25,7 @@ def convertFFmpeg():
 		subprocess.call('./ffmpegContainer.sh')
 		os.chdir(videos)
 		os.remove(fileNameWithoutExtension + tmpExtension)
-		shutil.move(fileName, ('/app/processed/' + fileName))
+		shutil.move(fileName, ('/app/processed/' + fileName + '.mp4'))
 
 
 scheduler = BlockingScheduler()
