@@ -18,16 +18,16 @@ processed = '/app/processed'
 def convertFFmpeg():
 	for fileName in os.listdir(videos):
 		os.chdir(videos)
+		if fileName=='ffmpegContainer.sh':
+			continue
 		fileNameWithoutExtension = os.path.splitext(fileName)[0]
 		tmpFileName = os.rename(fileName, fileNameWithoutExtension + tmpExtension)
 		tmpFileName
-		os.chdir(app)
-		subprocess.call('./ffmpegContainer.sh')
-		os.chdir(videos)
+		subprocess.call('/app/ffmpegContainer.sh')
 		os.remove(fileNameWithoutExtension + tmpExtension)
-		shutil.move(fileName, ('/app/processed/' + fileName + '.mp4'))
+		shutil.move(('/app/videos/' + fileNameWithoutExtension + '.mp4'), ('/app/processed/' + fileNameWithoutExtension + '.mp4'))
 
 
 scheduler = BlockingScheduler()
-scheduler.add_job(convertFFmpeg, 'interval', seconds=120, max_instances=1)
+scheduler.add_job(convertFFmpeg, 'interval', seconds=6, max_instances=1)
 scheduler.start()
